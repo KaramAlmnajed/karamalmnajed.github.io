@@ -132,10 +132,10 @@
 
         <section class="contact" id="contact">
             <h2 class="section__title">Get in Touch</h2>
-            <form class="contact__form" action="#" method="POST">
-                <input type="text" class="contact__input" placeholder="Your Name" required>
-                <input type="email" class="contact__input" placeholder="Your Email" required>
-                <textarea class="contact__textarea" placeholder="Your Message" rows="5" required></textarea>
+            <form id="contactForm" class="contact__form" action="#" method="POST">
+                <input type="text" class="contact__input" name="from_name" placeholder="Your Name" required>
+                <input type="email" class="contact__input" name="reply_to" placeholder="Your Email" required>
+                <textarea class="contact__textarea" name="message" placeholder="Your Message" rows="5" required></textarea>
                 <button type="submit" class="contact__button">Send Message</button>
             </form>
             <div class="contact__socials">
@@ -144,11 +144,43 @@
                 <a href="https://github.com/KaramAlmnajed/karamalmnajed" class="cta-button cta-button--secondary">GitHub</a>
             </div>
         </section>
+        
     </main>
 
     <footer class="footer">
         <p class="footer__text">&copy; 2024 Karam Almnajed.</p>
     </footer>
+
+
+
+
+
+    <!-- Include EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init("Qt4-ibzweBizrtbRc"); // Initialize EmailJS with your Public Key
+    })();
+</script>
+
+<script>
+    // Get the contact form
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Send the form data to EmailJS
+        emailjs.sendForm('service_rza80ip', 'template_3ssrq06', this)
+            .then(function() {
+                alert('Message sent successfully!');
+                // Optionally clear the form
+                document.getElementById('contactForm').reset();
+            }, function(error) {
+                alert('Failed to send message, please try again.');
+                console.log(error);
+            });
+    });
+</script>
+
 </body>
 
 </html>
